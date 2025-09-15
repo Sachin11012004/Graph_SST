@@ -1,0 +1,106 @@
+/*..................................................................DFS..................................................................*/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void dfs(int node, vector<vector<int>>& adj, vector<int>& vis) {
+    vis[node] = 1;
+    cout << node << " "; // process node
+    
+    for (auto neigh : adj[node]) {
+        if (!vis[neigh]) {
+            dfs(neigh, adj, vis);
+        }
+    }
+}
+
+int main() {
+    int n, m;
+    cin >> n >> m;
+
+    vector<vector<int>> adj(n+1);
+    for (int i = 0; i < m; i++) {
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u); // undirected
+    }
+
+    vector<int> vis(n+1, 0);
+
+    cout << "DFS Traversal: ";
+    for (int i = 1; i <= n; i++) {
+        if (!vis[i]) {
+            dfs(i, adj, vis);
+        }
+    }
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+/*..................................................................BFS..................................................................*/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void bfs(int start, vector<vector<int>>& adj, vector<int>& vis) {
+    queue<int> q;
+    q.push(start);
+    vis[start] = 1;
+
+    while (!q.empty()) {
+        int node = q.front();
+        q.pop();
+        cout << node << " "; // process node
+
+        for (auto neigh : adj[node]) {
+            if (!vis[neigh]) {
+                vis[neigh] = 1;
+                q.push(neigh);
+            }
+        }
+    }
+}
+
+int main() {
+    int n, m;
+    cin >> n >> m;
+
+    vector<vector<int>> adj(n+1);
+    for (int i = 0; i < m; i++) {
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u); // undirected
+    }
+
+    vector<int> vis(n+1, 0);
+
+    cout << "BFS Traversal: ";
+    for (int i = 1; i <= n; i++) {
+        if (!vis[i]) {
+            bfs(i, adj, vis);
+        }
+    }
+
+    return 0;
+}
+
+
+
+//  DONO KI TIME COMPLEXITY SAME HAI
+DFS
+
+Time: O(N + E)
+Space: O(N) (visited array + recursion stack depth up to N in worst case)
+
+BFS
+Time: O(N + E)
+Space: O(N) (visited array + queue storing nodes, max size ~N)

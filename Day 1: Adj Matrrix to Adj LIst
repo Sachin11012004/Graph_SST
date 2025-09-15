@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n; 
+    cin >> n; // number of nodes (vertices)
+
+    // Input adjacency matrix
+    vector<vector<int>> adjMatrix(n, vector<int>(n));
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cin >> adjMatrix[i][j];
+        }
+    }
+
+    // Convert to adjacency list         //.......................................................main code starts.............................
+    vector<vector<int>> adjList(n);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (adjMatrix[i][j] == 1 && i != j) {
+                adjList[i].push_back(j);
+            }
+        }
+    }
+                                        //.......................................................main code ends.................................
+    
+    cout << "Adjacency List:\n";
+    for (int i = 0; i < n; i++) {
+        cout << i << " -> ";
+        for (auto node : adjList[i]) {
+            cout << node << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
